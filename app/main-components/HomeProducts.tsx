@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import {  ShoppingCartCheckout } from "@mui/icons-material";
 import Link from "next/link";
 import SpecialProduct from "./SpecialProduct";
+import Button  from "react-bootstrap/Button";
 import styles from '../page.module.css'
 
 interface Product {
@@ -47,7 +48,7 @@ export default function HomeProducts() {
             <Link key={product.id} href={`/product/${product.id}`} className="col-lg-3 col-md-4 col-sm-6 mb-4 mx-3 card product">
               <div 
                 key={product.id}
-                
+                className="home-products-pro"
               >
                 <div className="products-imgs">
                   {" "}
@@ -62,8 +63,10 @@ export default function HomeProducts() {
                 <ul>
                   <li>{product.title}</li>
                   <li>$ {product.price}</li>
+                  <Button className={styles.addToCart} > <ShoppingCartCheckout/> <span> Add to Cart</span></Button> 
                 </ul>
               </div>
+              
             </Link>
           ))}
         </div>

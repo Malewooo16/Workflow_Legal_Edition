@@ -1,6 +1,8 @@
 "use client"
-import styles from '../page.module.css'
+import {  ShoppingCartCheckout } from "@mui/icons-material";
 import Link from "next/link";
+import Button  from "react-bootstrap/Button";
+import styles from '../page.module.css'
 interface Product {
   id: number;
   title: string;
@@ -28,7 +30,7 @@ export default function SpecialProduct() {
         <StarsRatings value={specialProduct.rating} className={styles.ratings} />
         <Link href={`/product/${specialProduct.id}`} className={styles.link}>See more details</Link>
         
-        
+        <Button className={styles.addToCart} > <ShoppingCartCheckout/>  <span> Add to Cart</span> </Button> 
         </div>}
     </>
   )

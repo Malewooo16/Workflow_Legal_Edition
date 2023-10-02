@@ -11,20 +11,20 @@ import Link from 'next/link';
 export function NavbarUno() {
     const defaultSvgColor= ""
   return (
-    <Navbar   className="mx-auto navbar-custom">
-        <Navbar.Brand href="#home"> <MenuOutlined style={{color:"white", fontSize:"45px"}}/> </Navbar.Brand>
+    <Navbar   className=" navbar-custom">
+        <Navbar.Brand href="#home"> <MenuOutlined /> </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
            
-            <li > <div className="location"><LocationOn style={{color:"white", fontSize:"45px"}} /> <p  >Hello <br/> <strong>Select Address</strong> </p> </div> </li>
+            <li > <div className="location"><LocationOn  /> <p  >Hello <br/> <strong>Select Address</strong> </p> </div> </li>
             <li><InputGroup>
         <Form.Control type="search" aria-label="With add-ons"  className='shadow-none' />
         <InputGroup.Text><SearchOutlined style={{color:"white", fontSize:"35px"}} /></InputGroup.Text>
       </InputGroup></li>
             <div className="navicons-right">
-            <li ><NotificationsActive style={{color:"white", fontSize:"45px"}} /></li>
-            <li ><ShoppingCartOutlined  style={{color:"white", fontSize:"45px"}}/></li>
+            <li ><NotificationsActive  /></li>
+            <li ><ShoppingCartOutlined  /></li>
             </div>
             
           </Nav>

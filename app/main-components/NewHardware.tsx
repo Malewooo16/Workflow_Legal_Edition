@@ -2,7 +2,9 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from "next/link";
-import styles from "../page.module.css"
+import { ArrowBackIos, ArrowForwardIos, ShoppingCartCheckout } from "@mui/icons-material";
+import Button  from "react-bootstrap/Button";
+import styles from '../page.module.css'
 interface Product {
     id: number;
     title: string;
@@ -22,7 +24,7 @@ export default function NewHardware() {
     },[limit])
   return (
     <div  className={styles.todaysBestDeals}>
-      <h1 >Today's Best Deals</h1>
+      <h1 >New Products</h1>
       {productsArr.length > 0 ? (
         <div > 
 
@@ -34,7 +36,7 @@ export default function NewHardware() {
             <Link key={product.id} href={`/product/${product.id}`} className="col-lg-3 col-md-4 col-sm-6 mb-4 mx-3 card">
               <div 
                 key={product.id}
-                
+                className='home-products-pro'
               >
                 <div className="products-imgs">
                   {" "}
@@ -49,8 +51,11 @@ export default function NewHardware() {
                 <ul>
                   <li>{product.title}</li>
                   <li>$ {product.price}</li>
+                  <Button className={styles.addToCart}  style={{width:"90px"}}> <ShoppingCartCheckout/> <span>Add to card</span> </Button> 
                 </ul>
+               
               </div>
+              
             </Link>
           ))}
         </div>

@@ -1,8 +1,11 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
+import {  ShoppingCartCheckout } from "@mui/icons-material";
 import Link from "next/link";
-import styles from "../page.module.css"
+import SpecialProduct from "./SpecialProduct";
+import Button  from "react-bootstrap/Button";
+import styles from '../page.module.css'
 interface Product {
     id: number;
     title: string;
@@ -34,7 +37,7 @@ export default function TodaysBestDeals() {
             <Link key={product.id} href={`/product/${product.id}`} className="col-lg-3 col-md-4 col-sm-6 mb-4 mx-3 card">
               <div 
                 key={product.id}
-                
+                className="home-products-pro"
               >
                 <div className="products-imgs">
                   {" "}
@@ -49,8 +52,10 @@ export default function TodaysBestDeals() {
                 <ul>
                   <li>{product.title}</li>
                   <li>$ {product.price}</li>
+                  <Button className={styles.addToCart} > <ShoppingCartCheckout/> <span>Add to card </span></Button>
                 </ul>
               </div>
+              
             </Link>
           ))}
         </div>

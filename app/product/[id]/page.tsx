@@ -3,7 +3,7 @@ import StarsRatings from "@/app/main-components/Rating";
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Button  from "react-bootstrap/Button";
-import { LocalShipping, ShoppingBasket, ShoppingCartCheckout } from "@mui/icons-material";
+import {ShoppingBasket, ShoppingCartCheckout } from "@mui/icons-material";
 
 interface Product {
   id: number;
