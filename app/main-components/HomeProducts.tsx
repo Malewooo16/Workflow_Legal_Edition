@@ -24,7 +24,7 @@ export default function HomeProducts() {
   const fetchProducts = async () => {
     
     const response = await fetch(
-      `https://dummyjson.com/products?limit=${limit}&skip=20`
+      `https://dummyjson.com/products?limit=${limit}&skip=21`
     );
     const data = await response.json();
     return data.products;
@@ -35,7 +35,6 @@ export default function HomeProducts() {
   
   return (
     <div style={{ display: "inline", width: "95%", marginBottom:"50px"  }}>
-      <h1 style={{ textAlign: "center" }}>Products Grid</h1>
       {productsArr.length > 0 ? (
         <div className={styles.homeProducts}> 
           <div className="special-product">
@@ -55,7 +54,6 @@ export default function HomeProducts() {
                   <img
                     src={product.thumbnail}
                     alt={product.title}
-                    width="150px"
                     height="100px"
                   />{" "}
                 </div>
@@ -63,8 +61,9 @@ export default function HomeProducts() {
                 <ul>
                   <li>{product.title}</li>
                   <li>$ {product.price}</li>
-                  <Button className={styles.addToCart} > <ShoppingCartCheckout/> <span> Add to Cart</span></Button> 
                 </ul>
+
+                <div className="cart-btn"><Button className={styles.addToCart} > <ShoppingCartCheckout/> </Button> </div>
               </div>
               
             </Link>

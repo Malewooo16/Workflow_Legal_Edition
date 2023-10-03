@@ -2,8 +2,8 @@
 import StarsRatings from "@/app/main-components/Rating";
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import Button  from "react-bootstrap/Button";
-import {ShoppingBasket, ShoppingCartCheckout } from "@mui/icons-material";
+import Button from "react-bootstrap/Button";
+import { ShoppingBasket, ShoppingCartCheckout } from "@mui/icons-material";
 
 interface Product {
   id: number;
@@ -25,7 +25,6 @@ export default function Page({ params }: { params: { id: string } }) {
     <div className="detailed-product">
       {product && (
         <div>
-          <h2> Product Name: {product.title} </h2>
           <div className={styles.detailed_product}>
             {" "}
             <h3> {product.title} </h3>{" "}
@@ -33,11 +32,16 @@ export default function Page({ params }: { params: { id: string } }) {
             <p> {product.description} </p>
             <h4> $ {product.price} </h4>
             <StarsRatings value={product.rating} />
-            <div className={styles.productOptions}> 
-            <Button className={styles.buyNow}> <ShoppingBasket/> Buy Now  </Button> 
-            <Button className={styles.addToCart} > <ShoppingCartCheckout/> Add to card </Button> 
-            
-             </div>
+            <div className={styles.productOptions}>
+              <Button className={styles.buyNow}>
+                {" "}
+                <ShoppingBasket /> Buy Now{" "}
+              </Button>
+              <Button className={styles.addToCart}>
+                {" "}
+                <ShoppingCartCheckout /> Add to card{" "}
+              </Button>
+            </div>
           </div>{" "}
         </div>
       )}

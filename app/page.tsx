@@ -12,14 +12,13 @@ import TodaysBestDeals from "./main-components/TodaysBestDeals"
 export default function Home() {
   return (
     <main >
-      <Banner/>
       <Sliders/>
       <HomeCards/>
+      <NoTransitionExample/>
       <HomeProducts />
       <TodaysBestDeals/>
       <img src="/Bobcat.png" width="1080px" alt="bobcat"  className="img fluid bobcat"/>
       <NewHardware/>
-      <NoTransitionExample/>
       <Footer/>
     </main>
   )

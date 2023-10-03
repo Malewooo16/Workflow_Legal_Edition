@@ -44,7 +44,6 @@ export default function TodaysBestDeals() {
                   <img
                     src={product.thumbnail}
                     alt={product.title}
-                    width="150px"
                     height="100px"
                   />{" "}
                 </div>
@@ -52,8 +51,9 @@ export default function TodaysBestDeals() {
                 <ul>
                   <li>{product.title}</li>
                   <li>$ {product.price}</li>
-                  <Button className={styles.addToCart} > <ShoppingCartCheckout/> <span>Add to card </span></Button>
+                  
                 </ul>
+                <div className="cart-btn"><Button className={styles.addToCart} > <ShoppingCartCheckout/> </Button> </div>
               </div>
               
             </Link>

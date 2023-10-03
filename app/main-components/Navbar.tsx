@@ -39,14 +39,13 @@ export function NavbarDos(){
 
 return(
     <div  className="navbar-dos">
-    <Link href={`/`}> <li>Todays best Deals</li> </Link>
-    <li> Best Sellers</li>
-    <li>Ujenzi Live</li>
-    <li> New Hardware </li>
-    <li>Gift Ideas</li>
-    <li>Gift Cards </li>
-    <li> Build Ideas</li>
-    <li>Browsing History</li>
+    <Link href={`/`}> <li>Home</li> </Link>
+    <Link href={`/`}><li> Best Sellers</li></Link>
+    <Link href={`/`}><li>Ujenzi Live</li></Link>
+    <Link href={`/`}><li> New Hardware </li></Link>
+    <Link href={`/`}><li>Gift Ideas</li></Link>
+    <Link href={`/`}><li>Gift Cards </li></Link>
+    
     <Badge pill bg="warning" >
     <Chat /> Feedback
   </Badge>

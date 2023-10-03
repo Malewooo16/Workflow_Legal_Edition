@@ -50,7 +50,7 @@ export default function
             <li>Lorem ipsum dolor sit.</li>
             <li>Excepturi voluptatibus </li>
             <li>Animi reprehenderit</li>
-            <li>Asperiores quia .</li>
+            <li>Asperiores quia.</li>
             <li>Hic, provident. </li>
         </ul>
        </div>

@@ -47,6 +47,7 @@ li p {
 .location p {
   display: inline;
   margin-top: 20px;
+  font-size: 14px;
 }
 
 .input-group {
@@ -56,7 +57,7 @@ li p {
   /* transition: all 3s !important; */
 }
 
-.input-group .form-control{
+.input-group .form-control {
   border-radius: 30px;
   transition: ease-in-out 0.3s;
 }
@@ -81,16 +82,16 @@ li p {
   margin-left: 120px;
 }
 
-.navicons-right svg{
+.navicons-right svg {
   margin-left: 30px;
 }
 
 .navbar-custom {
-  margin-left: 100px;
+  margin-left: 40px;
   padding: 0 20px;
 }
 
-.navbar-custom svg{
+.navbar-custom svg {
   font-size: 35px;
   color: white;
 }
@@ -99,12 +100,16 @@ li p {
   color: white;
   display: flex;
   justify-content: space-between;
-  padding: 10px 30px;
+  padding: 10px 50px;
 }
 .navbar-dos li {
   list-style: none;
   margin-top: 5px;
-  font-size: 15px;
+  font-size: 13px;
+  padding: 0 10px;
+}
+.navbar-dos li:hover {
+  text-decoration: underline;
 }
 
 .nav-main {
@@ -138,7 +143,7 @@ li p {
   margin: 0;
 }
 
-l.sidebar i {
+.sidebar i {
   padding: 10px;
 }
 
@@ -184,20 +189,32 @@ l.sidebar i {
   justify-content: center;
 }
 
+.home-products .card:hover {
+  outline: 2px solid #474454;
+}
+
 .home-products .card li {
   list-style: none;
 }
 
-.home-products-pro{
+.home-products-pro {
   display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+}
+
+.cart-btn{
+  display: flex;
+  justify-content: end;
   
 }
 
-.todaysBest .card{
+
+.todaysBest .card {
   width: 29%;
+}
+
+.todaysBest .card:hover {
+  outline: 2px solid #474454;
 }
 
 .todaysBest .card li {
@@ -207,6 +224,10 @@ l.sidebar i {
 .newHardware .card {
   width: 22%;
 }
+
+.newHardware .card:hover {
+  outline: 2px solid #474454;
+}
 .newHardware .card ul {
   padding-left: 0rem;
   list-style: none;
@@ -215,25 +236,24 @@ l.sidebar i {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 25px;
   margin-bottom: 20px;
 }
 
 .detailed-product {
   padding: 10px;
+  margin-left: 100px;
 }
 .HomeCards {
   display: flex;
   justify-content: space-between;
-  padding: 25px 20px;
+  padding: 25px 40px;
   margin-top: -124px;
 }
-
 
 .HomeCards .card {
   width: 30%;
   height: 200px;
-  
-  
 }
 /* This class needs a media query :required */
 
@@ -264,16 +284,15 @@ l.sidebar i {
   font-weight: 500;
 }
 
-
-.icons-main span svg{
+.icons-main span svg {
   font-size: 36px;
 }
 
-.svg-inline--fa{
+.svg-inline--fa {
   vertical-align: 0rem !important;
 }
 
-.mui-icons svg{
+.mui-icons svg {
   margin-bottom: 7px;
 }
 
@@ -303,12 +322,16 @@ l.sidebar i {
 }
 
 .special-product {
-  
   height: 100%; /* Ensure it takes the full height of its container */
   background-color: white;
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25) !important;
   border-radius: 20px;
   margin-right: 20px;
+}
+
+.special-product:hover {
+  outline: 2px solid #474454;
+  /* margin-right: 17px; */
 }
 
 .bobcat {
@@ -334,6 +357,28 @@ l.sidebar i {
   height: 150px;
 }
 
+.categories-slides li {
+  transition: 0.1s ease-in-out;
+}
+.categories-slides li:hover {
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25) !important;
+  padding: 20px;
+  z-index: 3;
+}
+
+.categories-title {
+  position: relative;
+  top: 40px;
+  font-size: 30px;
+  margin-left: 80px;
+  color: #474454;
+}
+
+.categories .card li {
+  list-style: none;
+}
+
 .footer-main {
   background-color: #0a185c;
   color: white;
@@ -350,13 +395,16 @@ l.sidebar i {
   list-style: none;
 }
 
-
-.mostPopularDecor{
+.mostPopularDecor {
   width: 288.75px;
-height: 79.559px;
-transform: rotate(-40.832deg);
-flex-shrink: 0;
-background: linear-gradient(269deg, #D0BC8F 19.32%, rgba(88, 73, 39, 0.79) 82%);
+  height: 79.559px;
+  transform: rotate(-40.832deg);
+  flex-shrink: 0;
+  background: linear-gradient(
+    269deg,
+    #d0bc8f 19.32%,
+    rgba(88, 73, 39, 0.79) 82%
+  );
 }
 
 @media (max-width: 1020px) {
@@ -376,7 +424,6 @@ background: linear-gradient(269deg, #D0BC8F 19.32%, rgba(88, 73, 39, 0.79) 82%);
     align-items: center;
     justify-content: center;
   }
-  
 
   .icons-main .icons {
     margin-right: 20px;

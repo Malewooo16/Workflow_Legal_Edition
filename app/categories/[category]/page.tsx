@@ -3,12 +3,14 @@
 import React, {useEffect, useState} from 'react'
 import Link from "next/link";
 import toSentenceCase from '@/app/utilities/toUpperCase';
+import StarsRatings from '@/app/main-components/Rating';
 interface Product {
     id: number;
     title: string;
     price: string;
     images: any;
     thumbnail: string;
+    rating:number;
   }
 
 export default function Page({ params }: { params: { category: string } }) {
@@ -24,9 +26,9 @@ export default function Page({ params }: { params: { category: string } }) {
     <div style={{ display: "inline", width: "95%" }}>
     <h1 style={{ textAlign: "center" }}> {categoryTitle} </h1>
     {productsArr.length > 0 ? (
-      <div className="row">
+      <div className="row categories">
         {productsArr.map((product: Product) => (
-          <Link key={product.id} href={`/product/${product.id}`} className="col-lg-3 col-md-4 col-sm-6 mb-4 mx-3  card">
+          <Link key={product.id} href={`/product/${product.id}`} className="col-lg-3 col-md-4 col-sm-6 mb-4 mx-3 card">
             <div
               key={product.id}
               
@@ -44,6 +46,7 @@ export default function Page({ params }: { params: { category: string } }) {
               <ul>
                 <li>{product.title}</li>
                 <li>$ {product.price}</li>
+                <StarsRatings value={product.rating} />
               </ul>
             </div>
           </Link>

@@ -16,7 +16,7 @@ export default function HomeCards() {
   return (
     <div className="HomeCards row">
       <Card
-        className="col-lg-3 col-md-4 col-sm-6 mb-4 mx-3 "
+        className="col-lg-3 col-md-4 col-sm-6 mb-4  "
         style={{
           backgroundImage: `url('/brownBg.svg') !important`,
           backgroundSize: "cover !important", // Control the background size

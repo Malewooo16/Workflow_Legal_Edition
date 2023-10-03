@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowBackIos, ArrowForwardIos, ShoppingCartCheckout } from "@mui/icons-material";
 import Button  from "react-bootstrap/Button";
 import styles from '../page.module.css'
+import splitSentences from '../utilities/titleFormater';
 interface Product {
     id: number;
     title: string;
@@ -15,6 +16,8 @@ interface Product {
 
 export default function NewHardware() {
     const [productsArr, setProductsArr] = useState([])
+    const sentenseFormatter = (text:string) => splitSentences(text, 4);
+
     const limit=8
     useEffect(()=>{
         fetch(`https://dummyjson.com/products?limit=${limit}&skip=50`)
@@ -43,17 +46,15 @@ export default function NewHardware() {
                   <img
                     src={product.thumbnail}
                     alt={product.title}
-                    width="150px"
                     height="100px"
                   />{" "}
                 </div>
 
                 <ul>
-                  <li>{product.title}</li>
-                  <li>$ {product.price}</li>
-                  <Button className={styles.addToCart}  style={{width:"90px"}}> <ShoppingCartCheckout/> <span>Add to card</span> </Button> 
+                  <li> {sentenseFormatter(product.title)} </li>
+                  <li>$ {product.price}</li> 
                 </ul>
-               
+                <div className="cart-btn"><Button className={styles.addToCart} > <ShoppingCartCheckout/> </Button> </div>
               </div>
               
             </Link>
