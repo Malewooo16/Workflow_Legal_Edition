@@ -12,6 +12,7 @@ import { faCoffee, faShirt, faMobile, faBottleDroplet, faFlask, faBasketShopping
 import { library } from "@fortawesome/fontawesome-svg-core";
 
 library.add(faCoffee, faShirt, faMobile, faBottleDroplet, faFlask, faBasketShopping, faHollyBerry, faChair, faLaptop);
+import Image from 'next/image'
 
 function CustomCarousel() {
     const [index, setIndex] = useState(0);
@@ -44,27 +45,27 @@ function CustomCarousel() {
           <li> <Link href={`/categories/${'home-decoration'}`}> <FontAwesomeIcon icon={faHollyBerry} /> Home Decoration</Link>  </li> 
           <li> <Link href={`/categories/${'furniture'}`}> <FontAwesomeIcon icon={faChair} /> Furniture</Link>  </li>
           <li> <Link href={`/categories/${'tops'}`}> <FontAwesomeIcon icon={faShirt} /> Tops </Link>  </li>
-          <li> <Link href={`/categories/${'womens-dresses'}`}> <img src="https://cdn-icons-png.flaticon.com/128/1785/1785255.png?ga=GA1.1.1994830766.1696254727&track=ais"  alt="dress svg" width="24px"/> Women's Dresses</Link>  </li>
-          <li> <Link href={`/categories/${'womens-shoes'}`}> <img src="https://cdn-icons-png.flaticon.com/128/363/363565.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="high heels" width="24px"/> Women's Shoes</Link>  </li>
+          <li> <Link href={`/categories/${'womens-dresses'}`}> <Image src="https://cdn-icons-png.flaticon.com/128/1785/1785255.png?ga=GA1.1.1994830766.1696254727&track=ais"  alt="dress svg" width={24}/> Women's Dresses</Link>  </li>
+          <li> <Link href={`/categories/${'womens-shoes'}`}> <Image src="https://cdn-icons-png.flaticon.com/128/363/363565.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="high heels" width={24}/> Women's Shoes</Link>  </li>
           </ul>
         </Carousel.Item>
         <Carousel.Item>
          <ul className="categories-slides">
-            <li> <Link href={`/categories/${"mens-shits"}`}><img src="https://cdn-icons-png.flaticon.com/128/6649/6649473.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="mens-shirts" width="24px" /> Men's Shirts</Link> </li>
-            <li> <Link href={`/categories/${"mens-shoes"}`}><img src="https://cdn-icons-png.flaticon.com/128/599/599761.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="mens-shoes" width="24px" /> Men's Shoes</Link></li>
-            <li>  <Link href={`/categories/${"mens-watches"}`}><img src="https://cdn-icons-png.flaticon.com/128/4305/4305522.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="mens-watches" width="24px" /> Men's Watches</Link></li>
-            <li> <Link href={`/categories/${"womens-watches"}`}><img src="https://cdn-icons-png.flaticon.com/128/4101/4101471.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="womens-watches" width="24px" /> Women's Watches</Link></li>
-            <li>  <Link href={`/categories/${"womens-bags"}`}><img src="https://cdn-icons-png.flaticon.com/128/661/661496.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="womens-bags" width="24px" /> Women's Bags</Link> </li>
+            <li> <Link href={`/categories/${"mens-shits"}`}><Image src="https://cdn-icons-png.flaticon.com/128/6649/6649473.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="mens-shirts" width={24} /> Men's Shirts</Link> </li>
+            <li> <Link href={`/categories/${"mens-shoes"}`}><Image src="https://cdn-icons-png.flaticon.com/128/599/599761.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="mens-shoes" width={24} /> Men's Shoes</Link></li>
+            <li>  <Link href={`/categories/${"mens-watches"}`}><Image src="https://cdn-icons-png.flaticon.com/128/4305/4305522.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="mens-watches" width={24} /> Men's Watches</Link></li>
+            <li> <Link href={`/categories/${"womens-watches"}`}><Image src="https://cdn-icons-png.flaticon.com/128/4101/4101471.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="womens-watches" width={24} /> Women's Watches</Link></li>
+            <li>  <Link href={`/categories/${"womens-bags"}`}><Image src="https://cdn-icons-png.flaticon.com/128/661/661496.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="womens-bags" width={24} /> Women's Bags</Link> </li>
          </ul>
         </Carousel.Item>
 
         <Carousel.Item>
          <ul className="categories-slides">
-            <li><Link href={`/categories/${"womens-jewellery"}`}><img src="https://cdn-icons-png.flaticon.com/128/7097/7097784.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="womens-jewellery" width="24px" /> Womens Jewellery </Link></li>
-            <li><Link href={`/categories/${"sunglasses"}`}><img src="https://cdn-icons-png.flaticon.com/128/2944/2944715.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="sunglasses" width="24px" />  Sunglasses</Link></li>
-            <li><Link href={`/categories/${"automotive"}`}><img src="https://cdn-icons-png.flaticon.com/128/6689/6689655.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="automotive" width="24px" />  Automotive </Link></li>
-            <li><Link href={`/categories/${"motorcycle"}`}><img src="https://cdn-icons-png.flaticon.com/128/26/26969.png?ga=GA1.1.1994830766.1696254727&track=ais" alt=" motorcycle" width="24px" />  Motorcycle </Link></li>
-            <li><Link href={`/categories/${"lighting"}`}><img src="https://cdn-icons-png.flaticon.com/128/10339/10339281.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="lighting" width="24px" />  Lighting </Link></li>
+            <li><Link href={`/categories/${"womens-jewellery"}`}><Image src="https://cdn-icons-png.flaticon.com/128/7097/7097784.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="womens-jewellery" width={24} /> Womens Jewellery </Link></li>
+            <li><Link href={`/categories/${"sunglasses"}`}><Image src="https://cdn-icons-png.flaticon.com/128/2944/2944715.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="sunglasses" width={24} />  Sunglasses</Link></li>
+            <li><Link href={`/categories/${"automotive"}`}><Image src="https://cdn-icons-png.flaticon.com/128/6689/6689655.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="automotive" width={24} />  Automotive </Link></li>
+            <li><Link href={`/categories/${"motorcycle"}`}><Image src="https://cdn-icons-png.flaticon.com/128/26/26969.png?ga=GA1.1.1994830766.1696254727&track=ais" alt=" motorcycle" width={24} />  Motorcycle </Link></li>
+            <li><Link href={`/categories/${"lighting"}`}><Image src="https://cdn-icons-png.flaticon.com/128/10339/10339281.png?ga=GA1.1.1994830766.1696254727&track=ais" alt="lighting" width={24} />  Lighting </Link></li>
          </ul>
         </Carousel.Item>
       </Carousel>
