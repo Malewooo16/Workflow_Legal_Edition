@@ -47,7 +47,7 @@ export default function DeliveryForm( ) {
         </Form.Group>
       </Row>
 
-      {cartPrice && <div className="d-flex align-items-center justify-content-center row mt-5"> <Button className="cart-form-btn"> Pay {cartPrice} Tsh </Button></div>}
+      {cartPrice && <div className="d-flex align-items-center justify-content-center row mt-5"> <Button className="cart-form-btn"> Pay $ {cartPrice} </Button></div>}
         </Form>
     </div>
   )
