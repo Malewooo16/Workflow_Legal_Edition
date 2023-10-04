@@ -6,9 +6,18 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Badge from 'react-bootstrap/Badge'
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { RootState, CartState} from "../utilities/cartTypes"
+
 
 
 export function NavbarUno() {
+const cart=useSelector((state:RootState)=>state.cart)
+
+
+
+
     const defaultSvgColor= ""
   return (
     <Navbar   className=" navbar-custom">
@@ -18,13 +27,13 @@ export function NavbarUno() {
           <Nav className="me-auto">
            
             <li > <div className="location"><LocationOn  /> <p  >Hello <br/> <strong>Select Address</strong> </p> </div> </li>
-            <li><InputGroup>
+            <li className='search'><InputGroup>
         <Form.Control type="search" aria-label="With add-ons"  className='shadow-none' />
         <InputGroup.Text><SearchOutlined style={{color:"white", fontSize:"35px"}} /></InputGroup.Text>
       </InputGroup></li>
             <div className="navicons-right">
-            <li ><NotificationsActive  /></li>
-            <li ><ShoppingCartOutlined  /></li>
+            <li ><NotificationsActive  /> </li>
+            <li > <Link href={`/cart`}> <ShoppingCartOutlined  /> {cart && <Badge className={cart.totalQuantity===0 ? "cart-pill-hidden" :"cart-pill"} pill bg="warning"> {cart.totalQuantity} </Badge>} </Link> </li>
             </div>
             
           </Nav>

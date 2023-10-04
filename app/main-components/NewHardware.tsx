@@ -6,10 +6,13 @@ import { ArrowBackIos, ArrowForwardIos, ShoppingCartCheckout } from "@mui/icons-
 import Button  from "react-bootstrap/Button";
 import styles from '../page.module.css'
 import splitSentences from '../utilities/titleFormater';
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/cartSlice";
+
 interface Product {
     id: number;
     title: string;
-    price: string;
+    price: number;
     images: any;
     thumbnail: string;
   }
@@ -17,8 +20,21 @@ interface Product {
 export default function NewHardware() {
     const [productsArr, setProductsArr] = useState([])
     const sentenseFormatter = (text:string) => splitSentences(text, 4);
-
     const limit=8
+    const dispatch = useDispatch();
+
+  const handleAddToCart = (product: Product) => {
+    dispatch(
+      addToCart({
+        id: product.id,
+        name: product.title,
+        price: product.price,
+        quantity: 1,
+        totalPrice: product.price,
+        thumbnail:product.thumbnail
+      })
+    );
+  };
     useEffect(()=>{
         fetch(`https://dummyjson.com/products?limit=${limit}&skip=50`)
         .then((response)=>response.json())
@@ -36,28 +52,36 @@ export default function NewHardware() {
           
           
           {productsArr.map((product: Product) => (
-            <Link key={product.id} href={`/product/${product.id}`} className="col-lg-3 col-md-4 col-sm-6 mb-4 mx-3 card">
-              <div 
-                key={product.id}
-                className='home-products-pro'
-              >
-                <div className="products-imgs">
-                  {" "}
-                  <img
-                    src={product.thumbnail}
-                    alt={product.title}
-                    height="100px"
-                  />{" "}
-                </div>
-
-                <ul>
-                  <li> {sentenseFormatter(product.title)} </li>
-                  <li>$ {product.price}</li> 
-                </ul>
-                <div className="cart-btn"><Button className={styles.addToCart} > <ShoppingCartCheckout/> </Button> </div>
+            <div
+            key={product.id}
+            className="col-lg-3 col-md-4 col-sm-6 mb-4 mx-3 card product"
+          >
+            <Link href={`/product/${product.id}`}>
+              <div className="products-imgs">
+                {" "}
+                <img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  height="100px"
+                />{" "}
               </div>
-              
+
+              <ul>
+                <li>{sentenseFormatter(product.title)}</li>
+                <li>$ {product.price}</li>
+              </ul>
             </Link>
+
+            <div className="cart-btn">
+              <Button
+                className={styles.addToCart}
+                onClick={() => handleAddToCart(product)}
+              >
+                {" "}
+                <ShoppingCartCheckout />{" "}
+              </Button>{" "}
+            </div>
+          </div>
           ))}
         </div>
         </div>
