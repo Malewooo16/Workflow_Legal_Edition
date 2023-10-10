@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react'
 import Link from "next/link";
 import toSentenceCase from '@/app/utilities/toUpperCase';
 import StarsRatings from '@/app/main-components/Rating';
+import Image from 'next/image'
 interface Product {
     id: number;
     title: string;
@@ -35,11 +36,11 @@ export default function Page({ params }: { params: { category: string } }) {
             >
               <div className="products-imgs">
                 {" "}
-                <img
+                <Image
                   src={product.thumbnail}
                   alt={product.title}
-                  width="200px"
-                  height="250px"
+                  width={200}
+                  height={250}
                 />{" "}
               </div>
 

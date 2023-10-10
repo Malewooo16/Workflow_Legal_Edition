@@ -6,6 +6,7 @@ import { RootState, CartState, CartItem } from '../utilities/cartTypes';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { addToCart, removeFromCart, toggleRemove } from '../store/cartSlice';
 import DeliveryForm from './DeliveryForm';
+import Image from "next/image"
 
 export default function Page() {
   const cart = useSelector((state: RootState) => state.cart);
@@ -46,7 +47,7 @@ export default function Page() {
                 <ul key={cart.id} className="row">
                   <div className="col">
                     <li>{cart.name}</li>
-                    <img className="cart-img" src={cart.thumbnail} alt={cart.name} width="150px" />
+                    <Image className="cart-img" src={cart.thumbnail} alt={cart.name} width={150} />
                   </div>
                   <li className="col">{cart.price}</li>
                   <li className="col">{cart.quantity}</li>
