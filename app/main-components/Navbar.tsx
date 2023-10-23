@@ -1,74 +1,35 @@
-"use client"
-import { LocationOn, NotificationsActive, ShoppingCartOutlined, MenuOutlined, SearchOutlined, Chat, HelpOutlined} from '@mui/icons-material';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Badge from 'react-bootstrap/Badge'
-import Link from 'next/link';
-import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { RootState, CartState} from "../utilities/cartTypes"
 
+import { BsThreeDots } from 'react-icons/bs'
+import ThemeProvider from './ThemeProvider'
+import SignOut from './SignOut'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../api/auth/[...nextauth]/route'
+import { cookies } from 'next/headers'
+import Themes from '@/utilities/theme'
+import { RxExit } from 'react-icons/rx'
 
+export default async function Navbar() {
+  
 
-export function NavbarUno() {
-const cart=useSelector((state:RootState)=>state.cart)
-
-
-
-
-    const defaultSvgColor= ""
+  const session= await getServerSession(authOptions)
   return (
-    <Navbar   className=" navbar-custom">
-        <Navbar.Brand href="#home"> <MenuOutlined /> </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-           
-            <li > <div className="location"><LocationOn  /> <p  >Hello <br/> <strong>Select Address</strong> </p> </div> </li>
-            <li className='search'><InputGroup>
-        <Form.Control type="search" aria-label="With add-ons"  className='shadow-none' />
-        <InputGroup.Text><SearchOutlined style={{color:"white", fontSize:"35px"}} /></InputGroup.Text>
-      </InputGroup></li>
-            <div className="navicons-right">
-            <li ><NotificationsActive  /> </li>
-            <li > <Link href={`/cart`}> <ShoppingCartOutlined  /> {cart && <Badge className={cart.totalQuantity===0 ? "cart-pill-hidden" :"cart-pill"} pill bg="warning"> {cart.totalQuantity} </Badge>} </Link> </li>
-            </div>
-            
-          </Nav>
-        </Navbar.Collapse>
-    </Navbar>
-  );
-}
-
-
-
-export function NavbarDos(){
-
-return(
-    <div  className="navbar-dos">
-    <Link href={`/`}> <li>Home</li> </Link>
-    <Link href={`/`}><li> Best Sellers</li></Link>
-    <Link href={`/`}><li>Ujenzi Live</li></Link>
-    <Link href={`/`}><li> New Hardware </li></Link>
-    <Link href={`/`}><li>Gift Ideas</li></Link>
-    <Link href={`/`}><li>Gift Cards </li></Link>
-    
-    <Badge pill bg="warning" >
-    <Chat /> Feedback
-  </Badge>
-  <Badge pill bg="warning" >
-  <HelpOutlined/>  Help Center
-  </Badge>
-
+    <div className="navbar bg-base-100">
+  <div className="flex-1">
+    <a className="btn btn-ghost normal-case text-xl">Elegance  </a>
+  </div>
+  <div className="flex-none">
+  <div className="dropdown">
+  <label tabIndex={0} className="btn bg-transparent border-0 text-2xl"> <BsThreeDots/> </label>
+  <ul tabIndex={0} className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box w-52 -ms-24 ">
+    <li><a> Profile</a></li>
+    <li><div className="divider my-0 hover:bg-transparent"></div></li>
+    <li> <SignOut/> </li>
+  </ul>
 </div>
-)
-
-}
-
-export function Banner(){
-    return(
-        <div className="banner"> Yeah we got exclusive deals !! </div>
-    )
+  </div>
+  <div className="flex-none">
+  <ThemeProvider/>
+  </div>
+</div>
+  )
 }

@@ -1,25 +1,21 @@
-import AppMain from "./main-components/AppMain"
-import Sliders from "./main-components/Carousel"
-import NoTransitionExample from "./main-components/CategoriesCarousel"
-import Footer from "./main-components/Footer"
-import HomeCards from "./main-components/HomeCards"
-import HomeProducts from "./main-components/HomeProducts"
-import {Banner} from "./main-components/Navbar"
-import NewHardware from "./main-components/NewHardware"
-import TodaysBestDeals from "./main-components/TodaysBestDeals"
+
+
+import ThemeProvider from "./main-components/ThemeProvider"
+import LoginForm from "./main-components/LoginForm"
 
 
 export default function Home() {
+  
   return (
-    <main >
-      <Sliders/>
-      <HomeCards/>
-      <NoTransitionExample/>
-      <HomeProducts />
-      <TodaysBestDeals/>
-      <img src="/Bobcat.png" width="1080px" alt="bobcat"  className="img fluid bobcat"/>
-      <NewHardware/>
-      <Footer/>
+    <main className="flex flex-col  " >
+      <div className="flex justify-end w-full">
+        
+      <ThemeProvider/>
+      </div>
+      
+      <div className="flex justify-center h-[90vh]  items-center" >
+        <LoginForm/>
+      </div>
     </main>
   )
 }
