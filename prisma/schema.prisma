@@ -20,3 +20,12 @@ model users{
   role String
   createdAt DateTime @default(now())
 }
+
+model theWorkflow{
+  workflowId String @default(uuid()) @unique
+  firstName String
+  lastName String
+  creatorEmail String @unique
+  suggestedDeadline DateTime
+  collaborators String
+}
