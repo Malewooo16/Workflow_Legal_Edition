@@ -14,13 +14,15 @@ export default async function AppLayout({
   }) {
   
     const session = await getServerSession(authOptions)
+    //console.log(session?.user)
   
     if(session?.user){
       return(<section className="flex flex-col mt-2" >
       <Navbar/>
       <div className="flex" >
-      <ul className="menu  w-56 rounded-box  ms-2 ">
+      <ul className="menu  w-56 rounded-box  ms-2  ">
 <li> <Link href={`/dashboard`}  className="mb-3">  Dashboard  </Link>  </li>
+<li><Link href={`/workflows`}  className="mb-3">  Workflows  </Link> </li>
 <li><Link href={`/analytics`}  className="mb-3">  Analytics  </Link> </li>
 <li><Link href={`/teams`} className="mb-3" >  Teams  </Link> </li>
 </ul>

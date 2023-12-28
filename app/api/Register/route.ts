@@ -5,7 +5,7 @@ import { hash} from 'bcrypt'
 
 
 export async function POST(req:Request){
-    const requestBody= await req.json()
+    const requestBody= await req.json();
     const {firstName, lastName, emailAddress, phoneNumber, password, role}= requestBody
 
     try{
