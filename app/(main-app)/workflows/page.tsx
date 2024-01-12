@@ -29,7 +29,7 @@ export default async  function page() {
 <div className="grid grid-cols-2 my-3 px-4 ">
 {userWorkflows.map((w)=> (
     <Link href={`/workflows/${w.workflowId}`}> <div className="card w-96  h-24 bg-base-100 shadow-lg p-4 border border-base-300 mb-4" key={w.workflowId}>
-    <ul>
+    <ul key={w.workflowId}>
     <><li> {w.workflowTitle} </li>
   <li> {`By ${w.firstName} ${w.lastName}`} </li></>
   </ul> </div> </Link>
