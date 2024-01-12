@@ -1,7 +1,6 @@
-"use server";
-import prisma from "@/app/db/prismadb";
-import AWS from "aws-sdk";
-//import { promises as fsPromises } from 'fs';
+import B2 from 'backblaze-b2';
+import AWS from "aws-sdk"
+
 
 const b2Credentials = {
   accessKeyId: '005a22d462ac6d30000000006',
@@ -12,22 +11,22 @@ const b2Credentials = {
 
 const s3 = new AWS.S3(b2Credentials);
 
+
+
 // Upload function
-export default async function toB2Test(formData: FormData, workflowID:string) {
-  
-  const fileData = formData.get('related-files') as File
+export default async function toB2Test(fileData: File) {
   if (!fileData) return;
-  if(fileData.size == 0){
-    console.log("File Not Detected")
-    return
-  }
+
   try {
     // Read the file content
-    const buffer = Buffer.from(await fileData.arrayBuffer())
+    const fileContent = await readFileAsync(fileData);
+
+    // Get file buffer
+    const bufferContent = Buffer.from(fileContent);
 
     // Set the parameters for the S3 upload
     const params = {
-      Bucket: 'WMA-File-Test',
+      Bucket: 'WMA-File-Test', // Replace with your S3 bucket name
       Key: fileData.name,
       Body: buffer,
       
@@ -60,10 +59,7 @@ export default async function toB2Test(formData: FormData, workflowID:string) {
     };
   } catch (error) {
     console.error('Error uploading file to S3-compatible storage:', error);
-    return {
-      success: false,
-      message: "Upload Failed"
-    };
+    throw error;
   }
 }
 
