@@ -6,11 +6,13 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import * as Yup from 'yup';
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import toB2Test from "../actions/testActions/toB2Test";
 
 
 export default  function AddWorkflow() {
   const [error,setError] = useState(false);
   const [success,setSuccess] = useState(false);
+  const [file , setFile] = useState <File | null> (null)
   const router = useRouter()
 
   const validationSchema = Yup.object().shape({
@@ -19,7 +21,31 @@ export default  function AddWorkflow() {
     deadline: Yup.string().required('Deadline is required'),
     with: Yup.string().required('Collaborators are required'),
   });
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
   
+    if (files && files.length > 0) {
+      // Assuming you want to handle only the first selected file
+      const file = files[0];
+      setFile(file);
+    }
+  };
+
+  const handleFileSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (file) {
+      try {
+        // Provide your bucket ID
+        const bucketId = 'YOUR_BUCKET_ID';
+        await toB2Test(file);
+        // Add any additional logic after the file is uploaded successfully
+      } catch (error) {
+        // Handle errors, e.g., show an error message to the user
+        console.error('Error during file upload:', error);
+      }
+    }
+  }
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
   });
@@ -30,6 +56,7 @@ export default  function AddWorkflow() {
     if(result.success){
       setError(false)
         setSuccess(true)
+       
         reset()
         window.scrollTo({ top: 10, behavior: 'smooth' });
         setTimeout(() => {
@@ -92,6 +119,16 @@ export default  function AddWorkflow() {
         
 </div>
 <button className="btn btn-success" type="submit"> Create </button>
+        </form>
+
+
+        <form onSubmit={handleFileSubmit} className="mb-6">
+          <p className="text-xl my-4"> Testing BackBlaze </p>
+          <label className='form-control max-w-xl my-4 join-item'>
+     <p className="my-2"> Upload Files related to the workflow</p>
+     <input type="file" className="file-input file-input-bordered w-full max-w-xs" onChange={handleFileChange}/>
+    </label>
+    <button className="btn btn-success">Upload to B2</button>
         </form>
     </div>
 

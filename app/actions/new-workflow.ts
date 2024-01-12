@@ -23,6 +23,7 @@ export async function addNewWorkflow(formData: { workflowTitle: string; descript
       workflowTitle: formData.workflowTitle,
       workflowDescription: formData.description,
       suggestedDeadline: formData.deadline,
+      
     };
     const { suggestedDeadline } = rawFormData;
 

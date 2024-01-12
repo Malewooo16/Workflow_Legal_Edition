@@ -24,6 +24,7 @@ export default async function AppLayout({
 <li> <Link href={`/dashboard`}  className="mb-3">  Dashboard  </Link>  </li>
 <li><Link href={`/workflows`}  className="mb-3">  Workflows  </Link> </li>
 <li><Link href={`/analytics`}  className="mb-3">  Analytics  </Link> </li>
+<li><Link href={`/gantts`}  className="mb-3">  Gantts  </Link> </li>
 <li><Link href={`/teams`} className="mb-3" >  Teams  </Link> </li>
 </ul>
 {children}
