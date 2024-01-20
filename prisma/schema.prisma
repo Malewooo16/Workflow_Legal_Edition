@@ -31,3 +31,25 @@ model theWorkflow{
   suggestedDeadline DateTime
   collaborators String
 }
+
+model workflowTest{
+  workflowId String @default(uuid()) @unique @id
+  workflowTitle String
+  workflowDescription String
+  firstName String
+  lastName String
+  creatorEmail String
+  suggestedDeadline DateTime
+  collaborators String
+  filesLocation String[] 
+}
+
+model testPerson{
+  workflowId String @default(uuid()) @unique @id
+  firstName String
+  lastName String
+  townAddress String
+  dob DateTime
+  emailAddress String
+  pictureURL String 
+}

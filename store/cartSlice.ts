@@ -1,90 +1,26 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  totalPrice: number;
-  thumbnail:string;
-  removed:boolean;
-}
-
-interface CartState {
-  itemsList: CartItem[];
-  totalQuantity: number;
-  totalPrice: number;
-}
-
-interface RootState {
-  cart: CartState;
-  // Add other slices if your store has more slices
-}
-
-const initialState: CartState = {
-  itemsList: [],
-  totalQuantity: 0,
-  totalPrice: 0,
+// Initial state for the slice
+const initialState = {
+  value: '',
 };
 
-const cart = createSlice({
-  name: "cart",
+// Create a Redux slice
+const mySlice = createSlice({
+  name: 'mySlice',
   initialState,
   reducers: {
-    addToCart(state, action: PayloadAction<CartItem>) {
-      const newItem = action.payload;
-      const existingItem = state.itemsList.find((i) => i.id === newItem.id);
-
-      if (existingItem) {
-        existingItem.quantity++;
-        existingItem.totalPrice += newItem.price;
-      } else {
-        state.itemsList.push({
-          id: newItem.id,
-          price: newItem.price,
-          quantity: 1,
-          totalPrice: newItem.price,
-          name: newItem.name,
-          thumbnail:newItem.thumbnail,
-          removed:false
-        });
-      }
-
-      state.totalQuantity++;
-      state.totalPrice += newItem.price;
-
-      
-
+    // Action to set the value
+    setValue: (state, action) => {
+      state.value = action.payload;
     },
-    removeFromCart(state, action: PayloadAction<number>) {
-      const id = action.payload;
-
-      const existingItem = state.itemsList.find((i) => i.id === id);
-
-      if (existingItem) {
-        if (existingItem.quantity === 1) {
-          state.itemsList = state.itemsList.filter((i) => i.id !== id);
-        } else {
-          existingItem.quantity--;
-          existingItem.totalPrice -= existingItem.price;
-        }
-
-        state.totalQuantity--;
-        state.totalPrice -= existingItem.price;
-      }
-    },
-
-    toggleRemove(state, action: PayloadAction<number>) {
-      const id = action.payload;
-
-      const itemToToggle = state.itemsList.find((i) => i.id === id);
-
-      if (itemToToggle) {
-        itemToToggle.removed = !itemToToggle.removed;
-      }
+    // Action to clear the initial value
+    clearValue: (state) => {
+      state.value = initialState.value;
     },
   },
 });
 
-export const { addToCart, removeFromCart, toggleRemove } = cart.actions;
-export default cart.reducer;
+// Export the actions and reducer
+export const { setValue, clearValue } = mySlice.actions;
+export default mySlice.reducer;

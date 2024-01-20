@@ -1,5 +1,5 @@
 "use server";
-import prisma from "@/app/db/prismadb";
+
 import AWS from "aws-sdk";
 //import { promises as fsPromises } from 'fs';
 
@@ -13,7 +13,7 @@ const b2Credentials = {
 const s3 = new AWS.S3(b2Credentials);
 
 // Upload function
-export default async function toB2Test(formData: FormData, workflowID:string) {
+export default async function toB2Test(formData: FormData) {
   
   const fileData = formData.get('related-files') as File
   if (!fileData) return;
@@ -36,22 +36,7 @@ export default async function toB2Test(formData: FormData, workflowID:string) {
     // Upload the file to S3-compatible storage
     const response = await s3.upload(params).promise();
 
-    console.log('File uploaded successfully:', response);
 
-    const prismaData = await prisma.workflowTest.findUnique({
-      where:{
-        workflowId: workflowID,
-      }
-    })
-    const updatedLoactionArr = [...prismaData.filesLocation, response.Location]
-    const updatedFile = await prisma.workflowTest.update({
-      where: {
-        workflowId: workflowID,
-      },
-      data: {
-        filesLocation: updatedLoactionArr,
-      },
-    });
     return {
       success: true,
       message: "Success",

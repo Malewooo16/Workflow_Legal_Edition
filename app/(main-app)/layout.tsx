@@ -20,7 +20,7 @@ export default async function AppLayout({
       return(<section className="flex flex-col mt-2" >
       <Navbar/>
       <div className="flex" >
-      <ul className="menu  w-56 rounded-box  ms-2  ">
+      <ul className="hidden md:flex menu  w-56 rounded-box  ms-2 ">
 <li> <Link href={`/dashboard`}  className="mb-3">  Dashboard  </Link>  </li>
 <li><Link href={`/workflows`}  className="mb-3">  Workflows  </Link> </li>
 <li><Link href={`/analytics`}  className="mb-3">  Analytics  </Link> </li>
