@@ -8,7 +8,6 @@ const b2Credentials = {
   secretAccessKey: 'K005S4WF3Aa6kcIQ5vKfFu0fPC1hyKk',
   endpoint: 'https://s3.us-east-005.backblazeb2.com',
   s3ForcePathStyle: true,
-  ContentDisposition: 'inline',
 };
 
 const s3 = new AWS.S3(b2Credentials);
@@ -31,7 +30,6 @@ export default async function toB2Test(formData: FormData, workflowID:string) {
       Bucket: 'WMA-File-Test',
       Key: fileData.name,
       Body: buffer,
-      ContentType: 'application/pdf',
       
     };
 
@@ -45,7 +43,7 @@ export default async function toB2Test(formData: FormData, workflowID:string) {
         workflowId: workflowID,
       }
     })
-    const updatedLoactionArr = [...prismaData.filesLocation, JSON.stringify({fileName:fileData.name, location:response.Location})]
+    const updatedLoactionArr = [...prismaData.filesLocation, response.Location]
     const updatedFile = await prisma.workflowTest.update({
       where: {
         workflowId: workflowID,
@@ -70,6 +68,11 @@ export default async function toB2Test(formData: FormData, workflowID:string) {
 }
 
 // Helper function to read file content asynchronously
+// async function readFileAsync(file: File): Promise<Buffer> {
+//   const fileBuffer = await fsPromises.readFile(file.path);
+//   return fileBuffer;
+// }
+
 // async function readFileAsync(file: File): Promise<Buffer> {
 //   const fileBuffer = await fsPromises.readFile(file.path);
 //   return fileBuffer;
