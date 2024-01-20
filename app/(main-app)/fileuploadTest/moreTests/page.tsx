@@ -48,7 +48,7 @@ export default function page() {
         <p className="text-error text-sm"> {errors.dob?.message} </p>
         </label>
 
-        <label className='form-control max-w-xl my-4 join-item'>
+        <label className='form-control max-w-xl my-4 join-item '>
            <p className="my-2"> Town Address</p>
            <input type="file" className="file-input file-input-bordered w-full " />
        
