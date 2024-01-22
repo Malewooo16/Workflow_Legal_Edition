@@ -45,7 +45,7 @@ model workflowTest{
 }
 
 model testPerson{
-  workflowId String @default(uuid()) @unique @id
+  userId String @default(uuid()) @unique @id
   firstName String
   lastName String
   townAddress String
