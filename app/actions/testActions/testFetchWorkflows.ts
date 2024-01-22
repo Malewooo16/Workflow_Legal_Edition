@@ -1,7 +1,8 @@
+import prisma from "@/app/db/prismadb";
 import { revalidatePath } from "next/cache";
-import prisma from "../db/prismadb";
 
-async function fetchWorkflowsPerUser(creatorEmail: any ) {
+
+async function fetchTestWorkflowsPerUser(creatorEmail: any ) {
     try {
         if (!creatorEmail || creatorEmail.trim() === '') {
             return { error: "Email address cannot be empty" };
@@ -27,4 +28,4 @@ async function fetchWorkflowsPerUser(creatorEmail: any ) {
     
 }
 
-export default fetchWorkflowsPerUser;
+export default fetchTestWorkflowsPerUser;

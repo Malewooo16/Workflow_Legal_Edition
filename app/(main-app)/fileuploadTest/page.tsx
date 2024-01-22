@@ -1,88 +1,98 @@
 "use client"
 
-import { addNewWorkflow } from "../actions/new-workflow"
 import { useForm } from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup'
 import * as Yup from 'yup';
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import toB2Test from "../actions/testActions/toB2Test";
+import { addNewWorkflowB2Test } from "@/app/actions/testActions/workflowB2Test";
+import {useDispatch, useSelector} from "react-redux"
+import { setValue } from "@/store/cartSlice";
+import FileUploadModal from "@/app/main-components/FileUploadModal";
+import toB2Test from "@/app/actions/testActions/toB2Test";
+
 
 
 export default  function AddWorkflow() {
   const [error,setError] = useState(false);
   const [success,setSuccess] = useState(false);
-  const [file , setFile] = useState <File | null> (null)
-  const router = useRouter()
+  const [showModal, setModal] = useState(false)
+  const [errorMessage,setErrorMesssage] = useState <any>('');
+  const [file , setFile] = useState <File | null> (null);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const workflowIdValue = useSelector((state: any) => state.cart.value) as string;
+
 
   const validationSchema = Yup.object().shape({
     workflowTitle: Yup.string().required('Title is required'),
     description: Yup.string().required('Description is required'),
     deadline: Yup.string().required('Deadline is required'),
     with: Yup.string().required('Collaborators are required'),
-  });
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
   
-    if (files && files.length > 0) {
-      // Assuming you want to handle only the first selected file
-      const file = files[0];
-      setFile(file);
-    }
-  };
+  });
 
-  const handleFileSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
 
-    if (file) {
-      try {
-        // Provide your bucket ID
-        const bucketId = 'YOUR_BUCKET_ID';
-        //await toB2Test(file);
-        // Add any additional logic after the file is uploaded successfully
-      } catch (error) {
-        // Handle errors, e.g., show an error message to the user
-        console.error('Error during file upload:', error);
-      }
-    }
-  }
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
   });
-  async function createNewWorkflow(formData: { workflowTitle: string; description: string; deadline: string; with: string; }){
+  async function createNewWorkflowTestB2(formData: { workflowTitle: string; description: string; deadline: string; with: string; }){
+    
+    
+    try{
+      const result = await addNewWorkflowB2Test(formData);
 
-    const result = await addNewWorkflow(formData)
-
-    if(result.success){
+    if(result.success == true){
       setError(false)
-        setSuccess(true)
-       
+       const workflowId = result.workflowId;
+       dispatch(setValue(workflowId))
         reset()
-        window.scrollTo({ top: 10, behavior: 'smooth' });
-        setTimeout(() => {
-          router.push("/workflows", { scroll: false });
-        }, 180);
+        window.scrollTo({ top: 10, behavior: 'smooth'});
+        setModal(true)
+        // setTimeout(() => {
+        //   router.push("/workflows", { scroll: false });
+        // }, 180);
         
         
     }
-    else{
+    else if (result.success==false){
       setError(true)
+      setErrorMesssage(result.error)
       window.scrollTo({ top: 10, behavior: 'smooth' });
     }
   }
+
+  catch(error){
+    setErrorMesssage(error)
+  }
+    }
+
+    async function uploadFiles(formData : FormData){
+      
+      const uploadResponse = await toB2Test(formData, workflowIdValue);
+
+     try{
+      if(uploadResponse?.success === true){
+        setSuccess(true)
+        setTimeout(()=>{setModal(false)}, 1200)
+      }
+
+     }
+     catch(err){
+       setErrorMesssage(err)
+     }
+    }
+  
   return (
-    <div className ="my-3 ">
+    <div className ={`my-3 mx-8  sm:mx-4 `}>
         
         
-        <form onSubmit={handleSubmit(createNewWorkflow)}>
-        {success&& <div role="alert" className="alert alert-success max-w-xl">
-  <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-  <span>Your Workflow has been added!</span>
-</div>}
+        <form onSubmit={handleSubmit(createNewWorkflowTestB2)}>
+        
 
 {error && <div role="alert" className="alert alert-error max-w-xl">
   <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-  <span>Failed to add Workflow.</span>
+  <span> {errorMessage} </span>
 </div>}
         <div className="join join-vertical flex">
         <label className='form-control max-w-xl my-4 join-item'>
@@ -116,21 +126,30 @@ export default  function AddWorkflow() {
 </select>
 <p className="text-error text-sm"> {errors.with?.message} </p>
         </label>
-        
+                
 </div>
 <button className="btn btn-success" type="submit"> Create </button>
         </form>
 
-
-        <form onSubmit={handleFileSubmit} className="mb-6">
-          <p className="text-xl my-4"> Testing BackBlaze </p>
-          <label className='form-control max-w-xl my-4 join-item'>
-     <p className="my-2"> Upload Files related to the workflow</p>
-     <input type="file" className="file-input file-input-bordered w-full max-w-xs" onChange={handleFileChange}/>
-    </label>
-    <button className="btn btn-success">Upload to B2</button>
+         <FileUploadModal isOpen={showModal} onClose={() => setModal(false)}>
+          <div>
+          {success&& <div role="alert" className="alert alert-success max-w-xl">
+  <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+  <span> {`Files Uploaded Successfully`} </span>
+</div>}
+          <form action={uploadFiles}>
+        <p className="text-xl my-4"> Your Workflow has been added! Upload Files related to this workflow </p>
+        <label className='form-control max-w-xl my-4 join-item'>
+    <p className="my-2"> Upload Files related to the workflow</p>
+    <input type="file" className="file-input file-input-bordered w-full max-w-xs" name='related-files' />
+  </label>
+  <button type="submit" className="btn btn-success">Upload Files</button>
         </form>
+           </div>
+         </FileUploadModal>
+        
     </div>
 
   )
 }
+
