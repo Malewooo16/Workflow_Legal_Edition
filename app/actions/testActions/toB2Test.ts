@@ -1,43 +1,69 @@
-import B2 from 'backblaze-b2';
-import AWS from "aws-sdk"
-
+"use server";
+import prisma from "@/app/db/prismadb";
+import AWS from "aws-sdk";
+//import { promises as fsPromises } from 'fs';
 
 const b2Credentials = {
-  accessKeyId: '005a22d462ac6d30000000002',
-  secretAccessKey: 'WMA-KEY',
-  endpoint: 'https://s3.us-east-005.backblazeb2.com', // Update the endpoint based on your B2 region
+  accessKeyId: '005a22d462ac6d30000000006',
+  secretAccessKey: 'K005S4WF3Aa6kcIQ5vKfFu0fPC1hyKk',
+  endpoint: 'https://s3.us-east-005.backblazeb2.com',
+  s3ForcePathStyle: true,
 };
 
 const s3 = new AWS.S3(b2Credentials);
 
-
-
 // Upload function
-export default async function toB2Test(fileData: File) {
+export default async function toB2Test(formData: FormData, workflowID:string) {
+  
+  const fileData = formData.get('related-files') as File
   if (!fileData) return;
-
+  if(fileData.size == 0){
+    console.log("File Not Detected")
+    return
+  }
   try {
     // Read the file content
-    const fileContent = await readFileAsync(fileData);
-
-    // Get file buffer
-    const bufferContent = Buffer.from(fileContent);
+    const buffer = Buffer.from(await fileData.arrayBuffer())
 
     // Set the parameters for the S3 upload
     const params = {
-      Bucket: 'WMA-File-Test', // Replace with your S3 bucket name
+      Bucket: 'WMA-File-Test',
       Key: fileData.name,
-      Body: bufferContent,
+      Body: buffer,
+      
     };
 
     // Upload the file to S3-compatible storage
     const response = await s3.upload(params).promise();
 
-    console.log('File uploaded successfully:', response.Location);
-    return response; // Return the upload response
+    console.log('File uploaded successfully:', response);
+
+    const prismaData = await prisma.workflowTest.findUnique({
+      where:{
+        workflowId: workflowID,
+      }
+    })
+    const updatedLoactionArr = [...prismaData.filesLocation, response.Location]
+    const updatedFile = await prisma.workflowTest.update({
+      where: {
+        workflowId: workflowID,
+      },
+      data: {
+        filesLocation: updatedLoactionArr,
+      },
+    });
+    return {
+      success: true,
+      message: "Success",
+      location: response.Location
+      
+    };
   } catch (error) {
     console.error('Error uploading file to S3-compatible storage:', error);
-    throw error;
+    return {
+      success: false,
+      message: "Upload Failed"
+    };
   }
 }
 
