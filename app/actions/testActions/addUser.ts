@@ -25,50 +25,46 @@ interface UserData {
   dob: string;
   townAddress: string;
   emailAddress: string;
-  userPic: File;
 }
 
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required('First Name is required'),
   lastName: Yup.string().required('Last Name is required'),
-  dob: Yup.date().required('Date of Birth is required').typeError('Invalid Date'),
-  townAddress: Yup.string().required('Town Address is required'),
+  firstName: Yup.string().required('First Name is required'),
   emailAddress: Yup.string().email('Invalid email address').required('Email Address is required'),
+  townAddress: Yup.string().required('Town Address is required'),
+  dob: Yup.date().required('Date of Birth is required').typeError('Invalid Date'),
+  
 });
 
-export async function addNewUser(formData: FormData): Promise<SuccessResponse | ErrorResponse > {
+export async function addNewUser(formData: UserData ): Promise<SuccessResponse | ErrorResponse > {
   try {
     await validationSchema.validate({
-      firstName: formData.get("firstName") as string,
-      lastName: formData.get("lastName") as string,
-      dob: formData.get("dob") as string,
-      townAddress: formData.get("townAddress") as string,
-      emailAddress: formData.get("emailAddress") as string,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      dob: formData.dob,
+      townAddress: formData.townAddress,
+      emailAddress:formData.emailAddress
+      
     }, { abortEarly: false });
 
     const rawFormData: UserData = {
-      firstName: formData.get("firstName") as string,
-      lastName: formData.get("lastName") as string,
-      dob: formData.get("dob") as string,
-      townAddress: formData.get("townAddress") as string,
-      emailAddress: formData.get("emailAddress") as string,
-      userPic: formData.get("userPic") as File,
-    };
-
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      dob: formData.dob,
+      townAddress: formData.townAddress,
+      emailAddress:formData.emailAddress
+    }
     // Create a FormData instance
 
     // Parse the deadline string into a JavaScript Date object
     const updatedDob = new Date(rawFormData.dob);
-    console.log(rawFormData.userPic.name);
-    const b2Response = await imgUpload(rawFormData.userPic);
-    const imgUrl = b2Response?.location;
+   
     const updatedData = {
       firstName: rawFormData.firstName,
       lastName: rawFormData.lastName,
       emailAddress: rawFormData.emailAddress,
       townAddress: rawFormData.townAddress,
       dob: updatedDob,
-      pictureUrl: imgUrl,
       
     };
 
