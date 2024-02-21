@@ -33,7 +33,6 @@ interface Workflow {
   }
 export  default async function Workflows({params}: {params:{workflowId:string}}) {
 
-
     "use server"
     const workflow: NewWorkflow = await prisma.workflowTest.findUnique({
         where:{
