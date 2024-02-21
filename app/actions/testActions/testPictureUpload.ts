@@ -13,6 +13,7 @@ const b2Credentials = {
 const s3 = new AWS.S3(b2Credentials);
 
 // Upload function
+
 export default async function toB2Test(formData: FormData) {
   
   const fileData = formData.get('related-files') as File
@@ -21,6 +22,7 @@ export default async function toB2Test(formData: FormData) {
     console.log("File Not Detected")
     return
   }
+
   try {
     // Read the file content
     const buffer = Buffer.from(await fileData.arrayBuffer())
