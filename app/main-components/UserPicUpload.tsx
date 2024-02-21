@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-
+import Image from 'next/image'
 
 
 export default function UserPicUpload(props : {nextStep:number , setNextStep : ()=> void}) {
@@ -37,7 +37,7 @@ export default function UserPicUpload(props : {nextStep:number , setNextStep : (
         <form action={toFinalStep}>
         <input type="file" className="file-input file-input-bordered w-full" name="userPic" onChange={handleFileChange}  />
         <p>Preview:</p>
-        {base64String && <img src={base64String} alt="preview"  /> }
+        {base64String && <Image src={base64String} alt="preview" width={250} /> }
         <button className="btn btn-success" type="submit">Upload</button>
         </form>
     </div>
