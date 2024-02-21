@@ -26,7 +26,7 @@ export default function UserPicUpload(props : {nextStep:number , setNextStep : (
        
       };
 
-      const toFinalStep = () =>{
+      const toFinalStep = (formData :FormData) =>{
         props.setNextStep()
       }
  
@@ -34,7 +34,7 @@ export default function UserPicUpload(props : {nextStep:number , setNextStep : (
   return (
     <div>
         <h2 className="text-lg my-4">Upload User Pic</h2>
-        <form onSubmit={toFinalStep}>
+        <form action={toFinalStep}>
         <input type="file" className="file-input file-input-bordered w-full" name="userPic" onChange={handleFileChange}  />
         <p>Preview:</p>
         {base64String && <img src={base64String} alt="preview"  /> }

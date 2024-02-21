@@ -2,18 +2,14 @@
 import { BsThreeDots } from 'react-icons/bs'
 import ThemeProvider from './ThemeProvider'
 import SignOut from './SignOut'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '../api/auth/[...nextauth]/route'
-import { cookies } from 'next/headers'
-import Themes from '@/utilities/theme'
-import { RxExit } from 'react-icons/rx'
+
 
 export default async function Navbar() {
   
 
-  const session= await getServerSession(authOptions)
+  //const session= await getServerSession(authOptions)
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 ">
   <div className="flex-1">
     <a className="btn btn-ghost normal-case text-xl">Elegance  </a>
   </div>

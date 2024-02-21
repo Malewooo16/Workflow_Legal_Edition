@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/app/db/prismadb";
 import toB2Test from "./toB2Test";
+import { revalidatePath } from "next/cache";
 
 interface SuccessResponse {
   success: true;
@@ -51,7 +52,9 @@ export async function addNewWorkflowB2Test(formData: { workflowTitle: string; de
       data: updatedData,
     });
 
+
    const workflowId = prismaResponse.workflowId as string;
+   revalidatePath(`/workflows`);
   
     return { success: true, message: "Workflow created successfully." , workflowId};
   } catch (error) {
@@ -59,5 +62,6 @@ export async function addNewWorkflowB2Test(formData: { workflowTitle: string; de
 
     return { success: false, error: "Failed to create workflow." };
   }
+  
 }
 

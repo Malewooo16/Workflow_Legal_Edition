@@ -17,17 +17,21 @@ export default async function AppLayout({
     //console.log(session?.user)
   
     if(session?.user){
-      return(<section className="flex flex-col mt-2" >
-      <Navbar/>
-      <div className="flex" >
-      <ul className="hidden md:flex menu  w-56 rounded-box  ms-2 ">
+      return(<section className=" mt-2" >
+      <div className="sticky top-0"><Navbar/></div>
+      <div className="flex " >
+      <div><ul className="hidden md:flex menu  w-56 rounded-box sticky top-14 ms-2 ">
 <li> <Link href={`/dashboard`}  className="mb-3">  Dashboard  </Link>  </li>
 <li><Link href={`/workflows`}  className="mb-3">  Workflows  </Link> </li>
 <li><Link href={`/analytics`}  className="mb-3">  Analytics  </Link> </li>
 <li><Link href={`/gantts`}  className="mb-3">  Gantts  </Link> </li>
 <li><Link href={`/teams`} className="mb-3" >  Teams  </Link> </li>
-</ul>
-{children}
+</ul></div>
+<div className="flex-1">{children}</div>
+<div> <div className="hidden sticky top-10 md:flex flex-col p-4 me-4 w-52 hover:bg-neutral"> 
+  <p className="text-lg ">Right Sidebar</p>
+  <p> Another sidebar </p>
+</div></div>
       </div>
     </section>)
     }
