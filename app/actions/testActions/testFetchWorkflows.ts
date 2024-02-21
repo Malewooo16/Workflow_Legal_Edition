@@ -5,20 +5,21 @@ import { revalidatePath } from "next/cache";
 async function fetchTestWorkflowsPerUser(creatorEmail: any ) {
     try {
         if (!creatorEmail || creatorEmail.trim() === '') {
-            return { error: "Email address cannot be empty" };
+            return { error: "Email address cannot be empty", success:false };
         }
 
-        const workflows = await prisma.theWorkflow.findMany({
+        const workflows = await prisma.workflowTest.findMany({
             where: {
                creatorEmail
             }
         });
 
         if (!workflows || workflows.length === 0) {
-            return { message: "No workflows available" };
+            return { error: "No workflows available", success:false };
         }
-        revalidatePath(`/`)
+        
         return workflows;
+        
     
     } catch (error) {
         console.error("Error fetching workflows:", error);

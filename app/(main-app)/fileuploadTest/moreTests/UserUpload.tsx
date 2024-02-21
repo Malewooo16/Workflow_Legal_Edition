@@ -13,6 +13,10 @@ export default function UserUpload() {
       setStep((prevStep)=> prevStep + 1)
     }
 
+    const backToStart = () =>{
+      setStep((prevStep) => prevStep - 2)
+    }
+
    
   return (
     <div>
@@ -22,7 +26,7 @@ export default function UserUpload() {
 
        {step === 2 && <UserPicUpload nextStep={step}  setNextStep={setNextStep}/>}
 
-       {step === 3 && <ValidateUser finalStep={step}/> }
+       {step === 3 && <ValidateUser finalStep={step} backToStart={backToStart}/> }
     </div>
   )
 }

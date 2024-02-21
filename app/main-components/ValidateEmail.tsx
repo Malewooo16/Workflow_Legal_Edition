@@ -1,9 +1,10 @@
 "use client"
 
-
-export default function ValidateUser (props : {finalStep:number}){
-    const userValidation = () =>{
-        //reload();
+import { useRouter } from "next/navigation";
+export default function ValidateUser (props : {finalStep:number , backToStart:()=>void}){
+    //const router = useRouter();
+    const userValidation = (formData:FormData) =>{
+        setTimeout(()=>{props.backToStart} , 100)
     }
     return(
         <div>
