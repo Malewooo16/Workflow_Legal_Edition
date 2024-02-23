@@ -18,7 +18,7 @@ export default async function AppLayout({
   
     if(session?.user){
       return(<section className=" mt-2" >
-      <div className="sticky top-0"><Navbar/></div>
+      <div className="sticky top-0 z-20"><Navbar/></div>
       <div className="flex " >
       <div><ul className="hidden md:flex menu  w-56 rounded-box sticky top-14 ms-2 ">
 <li> <Link href={`/dashboard`}  className="mb-3">  Dashboard  </Link>  </li>

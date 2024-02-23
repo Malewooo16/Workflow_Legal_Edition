@@ -50,7 +50,7 @@ export default async  function page() {
     
 <div className="grid grid-cols-2 my-3 px-4 ">
   
-{newWorkflow.map((w)=> (
+{newWorkflow.reverse().map((w)=> (
     <Link href={`/workflows/${w.workflowId}`} key={w.workflowId}> <div className="card w-96 h-36 bg-base-100 shadow-lg p-4 border border-base-300 mb-4" >
     <ul className="mb-2">
     <><li> {w.workflowTitle} </li>
