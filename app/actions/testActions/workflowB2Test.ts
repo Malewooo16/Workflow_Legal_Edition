@@ -17,7 +17,7 @@ interface ErrorResponse {
   error: string;
 }
 
-export async function addNewWorkflowB2Test(formData: { workflowTitle: string; description: string; deadline: string; with: string;  }): Promise<SuccessResponse | ErrorResponse> {
+export async function addNewWorkflowB2Test(formData: { workflowTitle: string; description: string; deadline: string; with: string;  } , agendas: any): Promise<SuccessResponse | ErrorResponse> {
   try {
     const session = await getServerSession(authOptions);
 
@@ -36,12 +36,13 @@ export async function addNewWorkflowB2Test(formData: { workflowTitle: string; de
     // Parse the deadline string into a JavaScript Date object
     const deadlineDate = new Date(rawFormData.suggestedDeadline);
 
-   
+   console.log(agendas)
     const updatedData = {
       collaborators: rawFormData.collaborators,
       workflowTitle: rawFormData.workflowTitle,
       workflowDescription: rawFormData.workflowDescription,
       suggestedDeadline: deadlineDate,
+      timeLines: [JSON.stringify(agendas)],
       creatorEmail: session?.user.email,
       firstName: session?.user.firstName,
       lastName: session?.user.lastName,
@@ -56,7 +57,7 @@ export async function addNewWorkflowB2Test(formData: { workflowTitle: string; de
    const workflowId = prismaResponse.workflowId as string;
    revalidatePath(`/workflows`);
   
-    return { success: true, message: "Workflow created successfully." , workflowId};
+    return { success: true, message: "Workflow created successfully." , workflowId };
   } catch (error) {
     console.error('Error creating workflow:', error);
 

@@ -17,10 +17,14 @@ import {
   DayView
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { appointments } from '@/utilities/appointments';
+import fetchWorkflowTimelines from '../actions/testActions/fetchTimeLines';
 
 //import { appointments } from '../../../demo-data/month-appointments';
 
-export default function CalenderDemo() {
+export default function CalenderDemo(props:{timeLines:any}) {
+  
+ // const timeLines = await fetchWorkflowTimelines(props.emailAddress)
+  //const parsedTimeLines = JSON.parse(timeLines)
   const [data] = useState(appointments);
   const [currentViewName, setCurrentViewName] = useState('work-week');
 
@@ -28,11 +32,12 @@ export default function CalenderDemo() {
     setCurrentViewName(newViewName);
   };
 
+
   return (
     <Paper>
-      <Scheduler data={data} height={660}>
+      <Scheduler data={props.timeLines}  height={660}>
         <ViewState
-          defaultCurrentDate="2018-07-25"
+          defaultCurrentDate="2024-02-25"
           currentViewName={currentViewName}
           onCurrentViewNameChange={handleCurrentViewNameChange}
         />
@@ -42,8 +47,7 @@ export default function CalenderDemo() {
           name="work-week"
           displayName="Work Week"
           excludedDays={[0, 6]}
-          startDayHour={9}
-          endDayHour={19}
+         
         />
         <MonthView />
         <DayView />

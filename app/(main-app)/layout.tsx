@@ -28,7 +28,7 @@ export default async function AppLayout({
 <li><Link href={`/teams`} className="mb-3" >  Teams  </Link> </li>
 </ul></div>
 <div className="flex-1">{children}</div>
-<div> <div className="hidden sticky top-10 md:flex flex-col p-4 me-4 w-52 hover:bg-neutral"> 
+<div> <div className="hidden sticky top-14 md:flex flex-col p-4 me-4 w-52 hover:bg-neutral"> 
   <p className="text-lg ">Right Sidebar</p>
   <p> Another sidebar </p>
 </div></div>

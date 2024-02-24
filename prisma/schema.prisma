@@ -8,6 +8,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model users{
@@ -40,6 +41,8 @@ model workflowTest{
   lastName String
   creatorEmail String
   suggestedDeadline DateTime
+  timeLines String[]
+  createdAt DateTime @default(now())
   collaborators String
   filesLocation String[] 
 }
