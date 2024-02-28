@@ -12,6 +12,8 @@ import * as Yup from 'yup';
 interface SuccessResponse {
   success: true;
   message?: string;
+  userId: string;
+  userEmail:string;
 }
 
 interface ErrorResponse {
@@ -27,6 +29,7 @@ interface UserData {
   dob: string;
   townAddress: string;
   emailAddress: string;
+  phoneNumber: string;
 }
 
 const validationSchema = Yup.object().shape({
@@ -54,7 +57,8 @@ export async function addNewUser(formData: UserData ): Promise<SuccessResponse |
       lastName: formData.lastName,
       dob: formData.dob,
       townAddress: formData.townAddress,
-      emailAddress:formData.emailAddress
+      emailAddress:formData.emailAddress,
+      phoneNumber:formData.phoneNumber
     }
     // Create a FormData instance
 
@@ -66,17 +70,19 @@ export async function addNewUser(formData: UserData ): Promise<SuccessResponse |
       lastName: rawFormData.lastName,
       emailAddress: rawFormData.emailAddress,
       townAddress: rawFormData.townAddress,
+      phoneNumber: rawFormData.phoneNumber,
       dob: updatedDob,
+      pictureURL:""
       
     };
 
-    const prismaResponse = await prisma.testUser.create({
+    const prismaResponse = await prisma.testPerson.create({
       data: updatedData,
     });
 
     console.log(prismaResponse);
 
-    return { success: true, message: "User created successfully." };
+    return { success: true, message: "User created successfully.", userId:prismaResponse.userId, userEmail:prismaResponse.emailAddress };
   } catch (error) {
     console.error('Error creating user:', error);
 

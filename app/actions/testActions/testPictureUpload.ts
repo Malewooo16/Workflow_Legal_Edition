@@ -1,5 +1,6 @@
 "use server";
 
+import prisma from "@/app/db/prismadb";
 import AWS from "aws-sdk";
 //import { promises as fsPromises } from 'fs';
 
@@ -14,9 +15,9 @@ const s3 = new AWS.S3(b2Credentials);
 
 // Upload function
 
-export default async function toB2Test(formData: FormData) {
+export default async function userPicUpload(formData: FormData, userId:string) {
   
-  const fileData = formData.get('related-files') as File
+  const fileData = formData.get('userPic') as File
   if (!fileData) return;
   if(fileData.size == 0){
     console.log("File Not Detected")
@@ -38,7 +39,14 @@ export default async function toB2Test(formData: FormData) {
     // Upload the file to S3-compatible storage
     const response = await s3.upload(params).promise();
 
-
+    const updatedFile = await prisma.testPerson.update({
+      where: {
+        userId: userId,
+      },
+      data: {
+        pictureURL:response.Location
+      },
+    });
     return {
       success: true,
       message: "Success",

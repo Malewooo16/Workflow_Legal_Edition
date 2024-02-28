@@ -41,26 +41,36 @@ export default async  function page() {
   const session = await getServerSession(authOptions)
   const userWorkflows: Workflow[] = await fetchWorkflowsPerUser(session?.user.email)
   const newWorkflow:NewWorkflow[] = await fetchTestWorkflowsPerUser(session?.user.email)
-
+  console.log(process.env.BASE_URL)
   
   return (
     <div className="flex-1">
-        <p className="text-2xl"> Your Workflows</p>
-        <div className="flex justify-center mb-6"><Link href={`/workflows/new-flows`}><button  className="btn btn-success "> Add a new workflow</button></Link></div>
-    
-<div className="grid grid-cols-2 my-3 px-4 ">
-  
-{newWorkflow.reverse().map((w)=> (
-    <Link href={`/workflows/${w.workflowId}`} key={w.workflowId}> <div className="card w-96 h-36 bg-base-100 shadow-lg p-4 border border-base-300 mb-4" >
-    <ul className="mb-2">
-    <><li> {w.workflowTitle} </li>
-  <li> {`By ${w.firstName} ${w.lastName}`} </li>
-  <li> Deadline {w.suggestedDeadline.toString().slice(0,-31)} </li>
-  </>
-  </ul> </div> </Link>
-   ))}
-</div>
-        
+  <p className="text-2xl">Your Workflows</p>
+  <div className="flex justify-center my-6">
+    <Link href={`/workflows/new-flows`}>
+      <button className="btn btn-success mt-4">Add a new workflow</button>
+    </Link>
+  </div>
+
+  {newWorkflow.length > 0 ? (
+    <div className="grid grid-cols-1 place-items-center md:grid-cols-2 md:place-items-start my-3 px-2">
+      {newWorkflow.reverse().map((w) => (
+        <Link href={`/workflows/${w.workflowId}`} key={w.workflowId}>
+          <div className="card w-96 h-36 bg-base-100 shadow-lg p-4 border border-base-300 mb-4">
+            <ul className="mb-2">
+              <>
+                <li>{w.workflowTitle}</li>
+                <li>{`By ${w.firstName} ${w.lastName}`}</li>
+                <li>Deadline {w.suggestedDeadline.toString()}</li>
+              </>
+            </ul>
+          </div>
+        </Link>
+      ))}
     </div>
+  ) : (
+    <p className="text-center text-lg">No workflows available.</p>
+  )}
+</div>
   )
 }

@@ -114,8 +114,8 @@ export default  function AddWorkflow() {
         setSuccess(true)
         setTimeout(()=>{
           setModal(false);
-          router.push("/workflows",{scroll:false});
-        }, 1000)
+          //router.push("/workflows",{scroll:false});
+        }, 1500)
       }
 
      }
@@ -223,7 +223,7 @@ export default  function AddWorkflow() {
             <li key={index} className="mb-2">
             {agenda.title} - {agenda.startTime} to {agenda.endTime}
           </li>
-          )) : <p>No Agendas added!!!</p> }
+          )) : <li>No Agendas added!!!</li> }
         </ul>
       </div>
     </div>
