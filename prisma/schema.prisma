@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model workflowUsers{
+  id Int @id @default(autoincrement())
+  firstName String
+  lastName String
+  phoneNumber Int
+  emailAddress String @unique
+  hashedPassword String
+  role String
+  createdAt DateTime @default(now())
+}
+
+model users{
+  id Int @id @default(autoincrement())
+  firstName String
+  lastName String
+  phoneNumber Int
+  emailAddress String @unique
+  hashedPassword String
+  role String
+  createdAt DateTime @default(now())
+}
+
+model theWorkflow{
+  workflowId String @default(uuid()) @unique
+  workflowTitle String
+  workflowDescription String
+  firstName String
+  lastName String
+  creatorEmail String
+  suggestedDeadline DateTime
+  collaborators String
+}
+
+model workflowTest{
+  workflowId String @default(uuid()) @unique @id
+  workflowTitle String
+  workflowDescription String
+  firstName String
+  lastName String
+  creatorEmail String
+  suggestedDeadline DateTime
+  timeLines String[]
+  createdAt DateTime @default(now())
+  collaborators String
+  filesLocation String[] 
+}
+
+model testPerson{
+  userId String @default(uuid()) @unique @id
+  firstName String
+  lastName String
+  townAddress String
+  dob DateTime
+  emailAddress String
+  pictureURL String 
+  phoneNumber String
+  validated Boolean @default(false)
+  createdAt DateTime @default(now())
+}
