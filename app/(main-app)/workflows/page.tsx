@@ -41,7 +41,7 @@ export default async  function page() {
   const session = await getServerSession(authOptions)
   const userWorkflows: Workflow[] = await fetchWorkflowsPerUser(session?.user.email)
   const newWorkflow:NewWorkflow[] = await fetchTestWorkflowsPerUser(session?.user.email)
-  console.log(process.env.BASE_URL)
+  
   
   return (
     <div className="flex-1">
@@ -61,7 +61,7 @@ export default async  function page() {
               <>
                 <li>{w.workflowTitle}</li>
                 <li>{`By ${w.firstName} ${w.lastName}`}</li>
-                <li>Deadline {w.suggestedDeadline.toString()}</li>
+                <li>Deadline {w.suggestedDeadline.toString().slice(0,21)}</li>
               </>
             </ul>
           </div>
